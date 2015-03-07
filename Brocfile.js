@@ -31,7 +31,8 @@ var vendorTree = pickFiles('bower_components', {
     destDir: '.',
     files: [
         'lodash/lodash.js',
-        'react/react.js'
+        'react/react.js',
+        'jquery/dist/jquery.js'
     ]
 });
 
