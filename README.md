@@ -1,6 +1,7 @@
-# ES6 App Template
+# RChat
 
-Drop in template for ES6 projects with babel and less compilation
+Experimental 'Collaborate Chat' built in React with a focus on conversation streams instead of rooms.
+Powered by [ES6 Template](https://github.com/ericlifka/es6-template)
 
 ## Dependencies
 
