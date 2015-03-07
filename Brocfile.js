@@ -1,20 +1,17 @@
 var pickFiles = require('broccoli-static-compiler');
 var babelTranspiler = require('broccoli-babel-transpiler');
-var filterReact = require('broccoli-react');
 var fastBrowserify = require('broccoli-fast-browserify');
 var concat = require('broccoli-concat');
 var mergeTrees = require('broccoli-merge-trees');
 var compileLess = require('broccoli-less-single');
 
 var srcTree = pickFiles('app/src', {
-    files: ['**/*.jsx'],
+    files: ['**/*.js'],
     srcDir: '.',
     destDir: './src'
 });
 
-var jsxFiltered = filterReact(srcTree);
-
-var babelTree = babelTranspiler(jsxFiltered, {
+var babelTree = babelTranspiler(srcTree, {
     sourceMap: 'inline'
 });
 
