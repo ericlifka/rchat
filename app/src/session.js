@@ -10,37 +10,36 @@ export default {
     },
     login(username, password) {
         return new Promise((resolve, reject) => {
-            let requestData = {
-                client: "rchat",
-                clientVersion: "0.0.1",
-                detail: {
-                    semver: "rchat-alpha",
-                    userAgent: window.navigator.userAgent
-                },
-                extendedSession: false,
-                includeFieldConfigs: false,
-                includeRoleInfo: false,
-                includeTranslations: false,
-                lang: "en_us",
-                email: Credentials.username,
-                password: Credentials.password
-            };
-
             $.ajax({
                 type: "POST",
                 url: loginUrl,
-                data: JSON.stringify(requestData),
+                data: this.requestData(username, password),
                 contentType: 'application/json',
                 dataType: 'json'
             })
                 .fail(reject)
                 .done(function ({res}) {
                     let cookie = 'X-OrgBook-Auth-Key';
-                    let value = res[cookie];
-
-                    $.cookie(cookie, value, { expires: 7 });
+                    $.cookie(cookie, res[cookie], { expires: 7 });
                     resolve();
                 });
+        });
+    },
+    requestData(username, password) {
+        return JSON.stringify({
+            client: "rchat",
+            clientVersion: "0.0.1",
+            detail: {
+                semver: "rchat-alpha",
+                userAgent: window.navigator.userAgent
+            },
+            extendedSession: false,
+            includeFieldConfigs: false,
+            includeRoleInfo: false,
+            includeTranslations: false,
+            lang: "en_us",
+            email: username,
+            password: password
         });
     }
 };
