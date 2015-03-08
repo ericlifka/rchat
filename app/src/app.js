@@ -34,8 +34,11 @@ $.get(sessionUrl)
             contentType: 'application/json',
             dataType: 'json'
         })
-            .done(function () {
-                console.log('login - done', arguments);
+            .done(function ({res}) {
+                let cookie = 'X-OrgBook-Auth-Key';
+                let value = res[cookie];
+
+                $.cookie(cookie, value, { expires: 7 });
             })
             .fail(function () {
                 console.log('login - fail', arguments);
