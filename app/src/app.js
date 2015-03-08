@@ -1,9 +1,5 @@
 import Credentials from './credentials';
 
-let baseUrl = `/directory-api`;
-let sessionUrl = `${baseUrl}/api/v2/session`;
-let loginUrl = `${baseUrl}/api/v2/login`;
-
 $.get(sessionUrl)
     .done(function () {
         console.log('session - done', arguments);
