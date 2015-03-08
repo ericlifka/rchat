@@ -7,36 +7,5 @@ $.get(sessionUrl)
     .fail(function () {
         console.log('session - fail', arguments);
 
-        let requestData = {
-            client: "rchat",
-            clientVersion: "0.0.1",
-            detail: {
-                semver: "rchat-alpha",
-                userAgent: window.navigator.userAgent
-            },
-            extendedSession: false,
-            includeFieldConfigs: false,
-            includeRoleInfo: false,
-            includeTranslations: false,
-            lang: "en_us",
-            email: Credentials.username,
-            password: Credentials.password
-        };
 
-        $.ajax({
-            type: "POST",
-            url: loginUrl,
-            data: JSON.stringify(requestData),
-            contentType: 'application/json',
-            dataType: 'json'
-        })
-            .done(function ({res}) {
-                let cookie = 'X-OrgBook-Auth-Key';
-                let value = res[cookie];
-
-                $.cookie(cookie, value, { expires: 7 });
-            })
-            .fail(function () {
-                console.log('login - fail', arguments);
-            })
     });
