@@ -6,6 +6,8 @@
     "broccoli-fast-browserify": "^0.2.5",
     "broccoli-less-single": "^0.2.0",
     "broccoli-merge-trees": "^0.2.1",
-    "broccoli-static-compiler": "^0.2.1"
+    "broccoli-static-compiler": "^0.2.1",
+    "express": "^4.12.2",
+    "request": "^2.53.0"
   }
 }
