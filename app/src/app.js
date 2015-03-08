@@ -21,8 +21,8 @@ $.get(sessionUrl)
             includeRoleInfo: false,
             includeTranslations: false,
             lang: "en_us",
-            email: "eric.lifka@inin.com",
-            password: "test1234"
+            email: "..snip..",
+            password: "..snip.."
         };
 
         $.ajax({
