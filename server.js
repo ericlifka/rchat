@@ -4,11 +4,12 @@ var apiUrl = "https://apps.ininsca.com";
 var uiUrl = "http://localhost:4200";
 
 var app = express();
-app.use('/api', function (req, res) {
+app.use('/directory-api', function (req, res) {
     var url = apiUrl + req.url;
+    console.log('forwarding request to: ' + url);
     req.pipe(request(url)).pipe(res);
 });
-app.use('/ui', function (req, res) {
+app.use('/app', function (req, res) {
     var url = uiUrl + req.url;
     req.pipe(request(url)).pipe(res);
 });
