@@ -1,3 +1,5 @@
+import Credentials from './credentials';
+
 let baseUrl = `/directory-api`;
 let sessionUrl = `${baseUrl}/api/v2/session`;
 let loginUrl = `${baseUrl}/api/v2/login`;
@@ -21,8 +23,8 @@ $.get(sessionUrl)
             includeRoleInfo: false,
             includeTranslations: false,
             lang: "en_us",
-            email: "..snip..",
-            password: "..snip.."
+            email: Credentials.username,
+            password: Credentials.password
         };
 
         $.ajax({
