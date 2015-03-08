@@ -3,38 +3,39 @@ let sessionUrl = `${baseUrl}/api/v2/session`;
 let loginUrl = `${baseUrl}/api/v2/login`;
 
 $.get(sessionUrl)
-    .done(() => {
+    .done(function () {
         console.log('session - done', arguments);
     })
-    .fail(() => {
+    .fail(function () {
         console.log('session - fail', arguments);
 
         let requestData = {
-            client: "web",
-            clientVersion: "2.4.0",
+            client: "rchat",
+            clientVersion: "0.0.1",
             detail: {
-                semver: "2.4.0+1036-origin/release/2.4.0-ccdcb43a60efd487c59fda2ff2fecc27e45f97a6",
-                userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36"
+                semver: "rchat-alpha",
+                userAgent: window.navigator.userAgent
             },
             extendedSession: false,
             includeFieldConfigs: false,
             includeRoleInfo: false,
             includeTranslations: false,
             lang: "en_us",
-            email: "...snip...",
-            password: "...snip..."
+            email: "eric.lifka@inin.com",
+            password: "test1234"
         };
 
         $.ajax({
             type: "POST",
             url: loginUrl,
             data: JSON.stringify(requestData),
-            dataType: 'application/json'
+            contentType: 'application/json',
+            dataType: 'json'
         })
-            .done(() => {
-                console.log('login - done');
+            .done(function () {
+                console.log('login - done', arguments);
             })
-            .fail(() => {
-                console.log('login - fail');
+            .fail(function () {
+                console.log('login - fail', arguments);
             })
     });
