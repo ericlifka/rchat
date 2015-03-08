@@ -1,12 +1,18 @@
 var express = require('express');
 var request = require('request');
 var apiUrl = "https://apps.ininsca.com";
+var realtimeUrl = apiUrl + "/realtime";
 var uiUrl = "http://localhost:4200";
 
 var app = express();
 app.use('/directory-api', function (req, res) {
     var url = apiUrl + req.url;
     console.log('forwarding request to: ' + url);
+    req.pipe(request(url)).pipe(res);
+});
+app.use('/realtime', function (req, res) {
+    var url = realtimeUrl + req.url;
+    console.log('forwarding realtime request to: ' + url);
     req.pipe(request(url)).pipe(res);
 });
 app.use('/app', function (req, res) {
