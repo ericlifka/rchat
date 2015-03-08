@@ -32,12 +32,14 @@ var vendorTree = pickFiles('bower_components', {
     files: [
         'lodash/lodash.js',
         'react/react.js',
-        'jquery/dist/jquery.js'
+        'jquery/dist/jquery.js',
+        'jquery.cookie/jquery.cookie.js'
     ]
 });
 
 var concatenatedVendor = concat(vendorTree, {
     inputFiles: [
+        '**/jquery.js',
         '**/*.js'
     ],
     outputFile: '/vendor.js',
