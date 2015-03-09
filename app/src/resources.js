@@ -1,3 +1,2 @@
-export var baseUrl = `/directory-api`;
-export var sessionUrl = `${baseUrl}/api/v2/session`;
-export var loginUrl = `${baseUrl}/api/v2/login`;
+export var sessionUrl = `/api/v2/session`;
+export var loginUrl = `/api/v2/login`;
