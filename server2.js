@@ -31,26 +31,9 @@ var proxy = httpProxy.createProxyServer({
 
 var proxyHttp = function (req, res) {
     var target;
-    var referrer = cleanReferrer(req.headers.referer);
 
-    if (!referrer) {
-        proxyTarget = defaultTarget;
-    } else {
-        var matcher = /([dts]ca)/g;
-        var match = referrer.match(matcher);
-
-        if (match && match[0]) {
-            proxyTarget = proxyTargets[match[0]];
-        } else {
-            proxyTarget = defaultTarget;
-        }
-    }
-
-    if (proxyTarget.realtime && req.url.indexOf('/realtime') === 0) {
-        target = proxyTarget.realtime;
-    } else {
-        target = proxyTarget.host;
-    }
+    proxyTarget = defaultTarget;
+    target = proxyTarget.host;
 
     proxy.web(req, res, {
         target: target
