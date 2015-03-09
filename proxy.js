@@ -15,7 +15,6 @@ var uiHost = 'http://localhost:4200';
 var app = express();
 
 var proxy = httpProxy.createProxyServer({
-    target: directoryHost,
     ws: true,
     secure: false
 });
