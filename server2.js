@@ -10,30 +10,13 @@ var httpsOptions = {
 };
 
 var defaultTarget = {
-    name: 'Development - https://localhost:8000/dca/',
-    host: 'https://apps.inindca.com',
-    // Uncomment this line if you want to run against a local reatime server
-    //realtime: 'http://localhost:4000',
-    carrierPigeon: 'wss://carrier-pigeon.us-east-1.inindca.com'
+    name: 'Staging     - https://localhost:8000/sca/',
+    host: 'https://apps.ininsca.com',
+    carrierPigeon: 'wss://carrier-pigeon.us-east-1.ininsca.com'
 };
 
 var proxyTargets = {
-    'dca': defaultTarget,
-    'tca': {
-        name: 'Test        - https://localhost:8000/tca/',
-        host: 'https://apps.inintca.com',
-        carrierPigeon: 'wss://carrier-pigeon.us-east-1.inintca.com'
-    },
-    'sca': {
-        name: 'Staging     - https://localhost:8000/sca/',
-        host: 'https://apps.ininsca.com',
-        carrierPigeon: 'wss://carrier-pigeon.us-east-1.ininsca.com'
-    },
-    'prod': {
-        name: 'Production  - https://localhost:8000/prod/',
-        host: 'https://apps.mypurecloud.com',
-        carrierPigeon: 'wss://carrier-pigeon.us-east-1.mypurecloud.com'
-    }
+    'sca': defaultTarget
 };
 
 var app = express();
