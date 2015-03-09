@@ -1,5 +1,4 @@
 var fs = require('fs');
-var path = require('path');
 var https = require('https');
 var express = require('express');
 var httpProxy = require('http-proxy');
@@ -46,6 +45,7 @@ proxy.on('error', function (e) {
     console.log('Proxy error: ', e);
 });
 
+server.on('upgrade', proxies.socket);
 app.all('/api/*', proxies.directory);
 app.all('/platform/api/*', proxies.directory);
 app.all('/directory/api/*', proxies.directory);
@@ -54,8 +54,6 @@ app.all('/sessions/*', proxies.directory);
 app.all('/services/*', proxies.directory);
 app.all('/admin/*', proxies.directory);
 app.all('/*', proxies.files);
-server.on('upgrade', proxies.socket);
 
 server.listen(config.port);
-
 console.log('Serving SSL from: ' + config.port);
