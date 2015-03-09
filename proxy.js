@@ -9,32 +9,20 @@ var httpsOptions = {
     cert: fs.readFileSync('server.crt')
 };
 
-var defaultTarget = {
-    name: 'Staging     - https://localhost:8000/sca/',
-    host: 'https://apps.ininsca.com',
-    carrierPigeon: 'wss://carrier-pigeon.us-east-1.ininsca.com'
-};
-
-var uiHost = "http://localhost:4200";
+var directoryHost = 'https://apps.ininsca.com';
+var uiHost = 'http://localhost:4200';
 
 var app = express();
 
-var proxyTarget;
-
 var proxy = httpProxy.createProxyServer({
-    target: defaultTarget.host,
+    target: directoryHost,
     ws: true,
     secure: false
 });
 
 var proxyHttp = function (req, res) {
-    var target;
-
-    proxyTarget = defaultTarget;
-    target = proxyTarget.host;
-
     proxy.web(req, res, {
-        target: target
+        target: directoryHost
     });
 };
 
@@ -45,23 +33,13 @@ var proxyUi = function (req, res) {
 };
 
 var proxyWebsocket = function (req, socket, head) {
-    var target;
-
-    console.log('Upgrade websocket', req.url, proxyTarget);
-
-    if (!proxyTarget) {
-        proxyTarget = defaultTarget;
-    }
-
-    target = proxyTarget.host;
-
     proxy.ws(req, socket, head, {
-        target: target
+        target: directoryHost
     });
 };
 
 proxy.on('error', function (e) {
-    console.log('Error while trying to proxy. Check internet connection.');
+    console.log('Proxy error: ', e);
 });
 
 app.all('/api/*', proxyHttp);
