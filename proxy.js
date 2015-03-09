@@ -20,7 +20,10 @@ var config = {
     }
 };
 
+var app = express();
 var proxy = httpProxy.createProxyServer(config.proxy);
+var server = https.createServer(config.https, app);
+
 var proxies = {
     directory: function (req, res) {
         proxy.web(req, res, {
@@ -38,11 +41,11 @@ var proxies = {
         });
     }
 };
+
 proxy.on('error', function (e) {
     console.log('Proxy error: ', e);
 });
 
-var app = express();
 app.all('/api/*', proxies.directory);
 app.all('/platform/api/*', proxies.directory);
 app.all('/directory/api/*', proxies.directory);
@@ -51,9 +54,8 @@ app.all('/sessions/*', proxies.directory);
 app.all('/services/*', proxies.directory);
 app.all('/admin/*', proxies.directory);
 app.all('/*', proxies.files);
-
-var server = https.createServer(config.https, app);
 server.on('upgrade', proxies.socket);
+
 server.listen(config.port);
 
 console.log('Serving SSL from: ' + config.port);
