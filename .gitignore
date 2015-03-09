@@ -6,3 +6,5 @@ public/
 tmp/
 
 credentials.js
+server.key
+server.crt
