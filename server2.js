@@ -73,7 +73,7 @@ var server = https.createServer(httpsOptions, app);
 
 server.on('upgrade', proxyWebsocket);
 
-var port = config.options.port + 100;
+var port = 3000;
 server.listen(port);
 
 console.log('Serving SSL from:', port);
