@@ -45,32 +45,11 @@ proxyWebsocket = function (req, socket, head) {
 
     console.log('Upgrade websocket', req.url, proxyTarget);
 
-    var referrer = cleanReferrer(req.headers.referer);
-
     if (!proxyTarget) {
-        if (!referrer) {
-            proxyTarget = defaultTarget;
-        } else {
-            var matcher = /([dts]ca)/g;
-            var match = referrer.match(matcher);
-
-            if (match && match[0]) {
-                proxyTarget = proxyTargets[match[0]];
-            } else {
-                proxyTarget = defaultTarget;
-            }
-        }
+        proxyTarget = defaultTarget;
     }
 
-    if(req.url.indexOf('/sessions') === 0) {
-        target = proxyTarget.carrierPigeon;
-    } else if (proxyTarget.realtime && req.url.indexOf('/realtime') === 0) {
-        target = proxyTarget.realtime;
-        // Switch 'http' to 'ws' and 'https' to 'wss'
-        target = target.replace(/^http/, 'ws');
-    } else {
-        target = proxyTarget.host;
-    }
+    target = proxyTarget.host;
 
     proxy.ws(req, socket, head, {
         target: target
@@ -149,12 +128,4 @@ function static(options) {
             });
         });
     };
-}
-
-function cleanReferrer (ref) {
-    if (ref && ref.indexOf('?') !== -1) {
-        return ref.substr(0, ref.indexOf('?'));
-    }
-
-    return ref;
 }
