@@ -4,11 +4,15 @@ var https = require('https');
 var express = require('express');
 var httpProxy = require('http-proxy');
 
-var directory = 'https://apps.ininsca.com';
-var broccoli = 'http://localhost:4200';
-var httpsOptions = {
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.crt')
+var config = {
+    hosts: {
+        directory: 'https://apps.ininsca.com',
+        broccoli: 'http://localhost:4200'
+    },
+    https: {
+        key: fs.readFileSync('server.key'),
+        cert: fs.readFileSync('server.crt')
+    }
 };
 
 var app = express();
@@ -19,19 +23,19 @@ var proxy = httpProxy.createProxyServer({
 
 var proxyHttp = function (req, res) {
     proxy.web(req, res, {
-        target: directory
+        target: config.hosts.directory
     });
 };
 
 var proxyUi = function (req, res) {
     proxy.web(req, res, {
-        target: broccoli
+        target: config.hosts.broccoli
     });
 };
 
 var proxyWebsocket = function (req, socket, head) {
     proxy.ws(req, socket, head, {
-        target: directory
+        target: config.hosts.directory
     });
 };
 
@@ -48,7 +52,7 @@ app.all('/services/*', proxyHttp);
 app.all('/admin/*', proxyHttp);
 app.all('/*', proxyUi);
 
-var server = https.createServer(httpsOptions, app);
+var server = https.createServer(config.https, app);
 
 server.on('upgrade', proxyWebsocket);
 
