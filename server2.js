@@ -64,8 +64,6 @@ proxy.on('error', function (e) {
     console.log('Error while trying to proxy. Check internet connection.');
 });
 
-
-api.all('/ui/*', proxyUi);
 app.all('/api/*', proxyHttp);
 app.all('/platform/api/*', proxyHttp);
 app.all('/directory/api/*', proxyHttp);
@@ -73,6 +71,7 @@ app.all('/realtime/*', proxyHttp);
 app.all('/sessions/*', proxyHttp);
 app.all('/services/*', proxyHttp);
 app.all('/admin/*', proxyHttp);
+app.all('/*', proxyUi);
 
 var server = https.createServer(httpsOptions, app);
 
