@@ -12,14 +12,15 @@ var config = {
     https: {
         key: fs.readFileSync('server.key'),
         cert: fs.readFileSync('server.crt')
+    },
+    proxy: {
+        ws: true,
+        secure: false
     }
 };
 
 var app = express();
-var proxy = httpProxy.createProxyServer({
-    ws: true,
-    secure: false
-});
+var proxy = httpProxy.createProxyServer(config.proxy);
 
 var proxyHttp = function (req, res) {
     proxy.web(req, res, {
