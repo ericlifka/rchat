@@ -15,13 +15,9 @@ var defaultTarget = {
     carrierPigeon: 'wss://carrier-pigeon.us-east-1.ininsca.com'
 };
 
-var proxyTargets = {
-    'sca': defaultTarget
-};
-
 var app = express();
 
-var proxyTarget, proxyWebsocket;
+var proxyTarget;
 
 var proxy = httpProxy.createProxyServer({
     target: defaultTarget.host,
@@ -40,7 +36,7 @@ var proxyHttp = function (req, res) {
     });
 };
 
-proxyWebsocket = function (req, socket, head) {
+var proxyWebsocket = function (req, socket, head) {
     var target;
 
     console.log('Upgrade websocket', req.url, proxyTarget);
@@ -75,9 +71,7 @@ app.all('/admin/*', proxyHttp);
 
 var server = https.createServer(httpsOptions, app);
 
-if (proxyWebsocket) {
-    server.on('upgrade', proxyWebsocket);
-}
+server.on('upgrade', proxyWebsocket);
 
 var port = config.options.port + 100;
 server.listen(port);
