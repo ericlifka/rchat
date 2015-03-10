@@ -13,6 +13,16 @@ class ChatApp {
     }
 
     attachToEvents() {
+        this.realtime
+            .on('message', desc => this.onMessage(desc))
+            .on('invite', desc => this.onInvite(desc));
+    }
+
+    onMessage(message) {
+        
+    }
+
+    onInvite({roomJid}) {
 
     }
 }
