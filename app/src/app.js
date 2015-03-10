@@ -15,14 +15,34 @@ class ChatApp {
     attachToEvents() {
         this.realtime
             .on('message', desc => this.onMessage(desc))
-            .on('invite', desc => this.onInvite(desc));
+            .on('invite', desc => this.onInvite(desc))
+            .on('activeChat', desc => this.onActiveChat(desc))
+            .on('occupantChange', desc => this.onOccupantChange(desc))
+            .on('presence', desc => this.onPresence(desc))
+            .on('subjectChange', desc => this.onSubjectChange(desc));
     }
 
     onMessage(message) {
-        
+
     }
 
     onInvite({roomJid}) {
+
+    }
+
+    onActiveChat(desc) {
+
+    }
+
+    onOccupantChange(desc) {
+
+    }
+
+    onPresence(desc) {
+
+    }
+
+    onSubjectChange(desc) {
 
     }
 }
@@ -38,30 +58,3 @@ Session.checkSession()
     .catch(() => Session.login(Credentials.username, Credentials.password)
         .then(bootstrapApp)
         .catch(() => console.log("Error - couldn't log in")));
-
-//
-//rt.on('connect', () => {
-//    console.log('connect');
-//});
-//
-//rt.on('disconnect', () => {
-//    console.log('disconnect');
-//});
-//
-//rt.on('message', () => {
-//    console.log('message');
-//});
-//
-//rt.on('status', () => {
-//    console.log('status');
-//});
-//
-//rt.on('activeChat', () => {
-//    console.log('activeChat');
-//});
-//
-//rt.on('presence', () => {
-//    console.log('presence');
-//});
-//
-//rt.connect();
